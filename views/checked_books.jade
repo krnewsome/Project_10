@@ -1,58 +1,82 @@
-<!DOCTYPE html>
-<html>
+extends layout
 
-<head>
-    <title>Books</title>
-    <link rel="stylesheet" href="stylesheets/style.css">
-</head>
-<nav>
-    <ul>
-        <li><a href="all_books.html">Books</a></li>
-        <li><a href="all_patrons.html">Patrons</a></li>
-        <li><a href="all_loans.html">Loans</a></li>
-    </ul>
-</nav>
+block content
 
-<body>
-    <h1>Checked Out Books</h1>
-    <p> <a href="new_book.html" class="button">Create New Book</a></p>
-    <p>Filters <a href="all_books.html">All</a> | <a href="overdue_books.html">Overdue</a> | <a href="checked_books.html">Checked Out</a></p>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Year Released</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><a href="book_detail.html">Emma</a></td>
-                <td>Jane Austen</td>
-                <td>Classic</td>
-                <td>1815</td>
-            </tr>
-            <tr>
-                <td><a href="book_detail.html">Harry Potter and the Goblet of Fire</a></td>
-                <td>J.K. Rowling</td>
-                <td>Fantasy</td>
-                <td>2000</td>
-            </tr>
-            <tr>
-                <td><a href="book_detail.html">A Brief History of Time</a></td>
-                <td>Stephen Hawking</td>
-                <td>Non Fiction</td>
-                <td>1988</td>
-            </tr>
-            <tr>
-                <td><a href="book_detail.html">The Universe in a Nutshell</a></td>
-                <td>Stephen Hawking</td>
-                <td>Non Fiction</td>
-                <td>2001</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+  title Books
 
-</html>
+  link(rel='stylesheet', href='stylesheets/style.css')
+  nav
+    ul
+      li
+        a(href='all_books.html') Books
+
+      li
+        a(href='all_patrons.html') Patrons
+
+      li
+        a(href='all_loans.html') Loans
+  body
+    h1 Checked Out Books
+
+    p
+      a.button(href='new_book.html') Create New Book
+
+    p
+       Filters
+      a(href='all_books.html') All
+
+      a(href='overdue_books.html') Overdue
+
+      a(href='checked_books.html') Checked Out
+
+    table
+      thead
+        tr
+          th Title
+
+          th Author
+
+          th Genre
+
+          th Year Released
+
+      tbody
+        tr
+          td
+            a(href='book_detail.html') Emma
+
+          td Jane Austen
+
+          td Classic
+
+          td 1815
+
+        tr
+          td
+            a(href='book_detail.html') Harry Potter and the Goblet of Fire
+
+          td J.K. Rowling
+
+          td Fantasy
+
+          td 2000
+
+        tr
+          td
+            a(href='book_detail.html') A Brief History of Time
+
+          td Stephen Hawking
+
+          td Non Fiction
+
+          td 1988
+
+        tr
+          td
+            a(href='book_detail.html') The Universe in a Nutshell
+
+          td Stephen Hawking
+
+          td Non Fiction
+
+          td 2001

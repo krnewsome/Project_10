@@ -1,29 +1,47 @@
-<!DOCTYPE html>
-<html>
+extends layout
 
-<head>
-    <title>New Patron</title>
-    <link rel="stylesheet" href="stylesheets/style.css">
-</head>
-<nav>
-    <ul>
-        <li><a href="all_books.html">Books</a></li>
-        <li><a href="all_patrons.html">Patrons</a></li>
-        <li><a href="all_loans.html">Loans</a></li>
-    </ul>
-</nav>
+block content
 
-<body>
-    <h1>New Patron</h1>
-    <form>
-        <p> <label for="first_name">First Name</label><input id="first_name" type="text"></p>
-        <p> <label for="last_name">Last Name</label><input id="last_name" type="text"></p>
-        <p><label for="address"> Address</label><input id="address" type="text"></p>
-        <p><label for="email">Email</label><input id="email" type="text"></p>
-        <p> <label for="library_id">Library ID</label><input id="library_id" type="text"></p>
-        <p><label for="zip_code">Zip Code</label><input id="zip_code" type="text"></p>
-        <p><input type="submit" value="Create New Patron"></p>
-    </form>
-</body>
+  title New Patron
 
-</html>
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  nav
+    ul
+      li
+        a(href='all_books.html') Books
+
+      li
+        a(href='all_patrons.html') Patrons
+
+      li
+        a(href='all_loans.html') Loans
+  body
+    h1 New Patron
+
+    form
+      p
+        label(for='first_name') First Name
+        input#first_name(type='text')
+
+      p
+        label(for='last_name') Last Name
+        input#last_name(type='text')
+
+      p
+        label(for='address')  Address
+        input#address(type='text')
+
+      p
+        label(for='email') Email
+        input#email(type='text')
+
+      p
+        label(for='library_id') Library ID
+        input#library_id(type='text')
+
+      p
+        label(for='zip_code') Zip Code
+        input#zip_code(type='text')
+
+      p
+        input(type='submit', value='Create New Patron')

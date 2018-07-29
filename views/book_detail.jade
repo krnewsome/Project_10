@@ -1,50 +1,84 @@
-<!DOCTYPE html>
-<html>
+extends layout
 
-<head>
-    <title>A Brief History of Time</title>
-    <link rel="stylesheet" href="stylesheets/style.css">
-</head>
-<nav>
-    <ul>
-        <li><a href="all_books.html">Books</a></li>
-        <li><a href="all_patrons.html">Patrons</a></li>
-        <li><a href="all_loans.html">Loans</a></li>
-    </ul>
-</nav>
+block content
 
-<body>
-    <h1>Book: A Brief History of Time</h1>
-    <form>
-        <p> <label for="title">Title</label><input id="title" type="text" value="A Brief History of Time"></p>
-        <p><label for="author">Author</label><input id="author" type="text" value="Stephen Hawking"></p>
-        <p><label for="genre">Genre</label><input id="genre" type="text" value="Non Fiction"></p>
-        <p><label for="first_published">First Published</label><input id="first_published" type="text" value="1988"></p>
-        <p><input type="submit" value="Update"></p>
-    </form>
-    <h2>Loan History</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Book</th>
-                <th>Patron </th>
-                <th>Loaned on</th>
-                <th>Return by </th>
-                <th>Returned on</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><a href="book_detail.html">A Brief History of Time</a></td>
-                <td><a href="patron_detail.html">Andrew Chalkley</a></td>
-                <td>2015-12-12</td>
-                <td>2015-12-19</td>
-                <td></td>
-                <td><a href="return_book.html" class="button">Return Book</a></td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+  title Patrons
 
-</html>
+  link(rel='stylesheet', href='stylesheets/style.css')
+  nav
+    ul
+      li
+        a(href='all_books.html') Books
+
+      li
+        a(href='all_patrons.html') Patrons
+
+      li
+        a(href='all_loans.html') Loans
+  body
+    h1 Patrons
+
+    p
+      a.button(href='new_patron.html') Create New Patron
+
+    table
+      thead
+        tr
+          th Name
+
+          th Address
+
+          th Email
+
+          th Library ID
+
+          th Zip
+
+      tbody
+        tr
+          td
+            a(href='patron_detail.html') Andrew Chalkley
+
+          td 1234 NE 20st St
+
+          td andrew.chalkley@teamtreehouse.com
+
+          td MCL1001
+
+          td 90210
+
+        tr
+          td
+            a(href='patron_detail.html') Dave McFarland
+
+          td 5252 NW 2nd St
+
+          td dave.mcfarland@teamtreehouse.com
+
+          td MCL1010
+
+          td 90210
+
+        tr
+          td
+            a(href='patron_detail.html') Alena Holligan
+
+          td 1404 SW 101st St
+
+          td alena.holligan@teamtreehouse.com
+
+          td MCL1100
+
+          td 91210
+
+        tr
+          td
+            a(href='patron_detail.html') Michael Poley
+
+          td 7070 NE 10th Ave
+
+          td michael.poley@teamtreehouse.com
+
+          td MCL1011
+
+          td 91310
