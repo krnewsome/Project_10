@@ -2,19 +2,6 @@ extends layout
 
 block content
 
-  title Books
-
-    link(rel='stylesheet', href='stylesheets/style.css')
-  nav
-    ul
-      li
-        a(href='all_books') Books
-
-      li
-        a(href='all_patrons') Patrons
-
-      li
-        a(href='all_loans') Loans
   h1 Books
 
       p
@@ -43,10 +30,10 @@ block content
           each book in books
             tr
               td
-                a(href='book_detail') Harry Potter and the Philosopher&apos;s Stone
+                a(href='book_detail/#{book.id}' ) #{book.title}
 
-              td book.author
+              td #{book.author}
 
-              td book.genre
+              td #{book.genre}
 
-              td book.first_published
+              td #{book.first_published}

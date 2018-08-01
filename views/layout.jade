@@ -3,5 +3,15 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    nav
+      ul
+        li
+          a(href='/all_books') Books
+
+        li
+          a(href='/all_patrons') Patrons
+
+        li
+          a(href='/all_loans') Loans
+    body
     block content

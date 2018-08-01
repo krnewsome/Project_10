@@ -1,17 +1,48 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var book = sequelize.define('book', {
+  var Book = sequelize.define('Book', {
     id: {
       primaryKey: true,
       type:DataTypes.INTEGER,
+      autoIncrement: true,
     },
-    title: DataTypes.STRING,
-    author: DataTypes.STRING,
-    genre: DataTypes.STRING,
-    first_published: DataTypes.INTEGER
+
+    title:{
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Title is required"
+        }
+      }
+    },
+
+    author: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Author is required"
+        }
+      }
+    },
+
+    genre: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Genre is required"
+        }
+      }
+    },
+
+    first_published: {
+      type: DataTypes.INTEGER,
+      validate: {
+        isDate: true
+      }
+    }
   }, {});
-  book.associate = function(models) {
+  Book.associate = function(models) {
     // associations can be defined here
   };
-  return book;
+  return Book;
 };
