@@ -35,14 +35,12 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     first_published: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isDate: true
-      }
+      type: DataTypes.INTEGER
     }
   }, {});
   Book.associate = function(models) {
     // associations can be defined here
+    Book.hasMany(models.Loans, { foreignKey: 'book_id'})
   };
   return Book;
 };

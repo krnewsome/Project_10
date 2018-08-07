@@ -43,18 +43,19 @@ block content
             th Action
 
         tbody
+        each loan in books[0].Loans
           tr
             td
-              a(href='book_detail') A Brief History of Time
+              a(href='book_detail') #{loan.Book.title}
 
             td
-              a(href='patron_detail') Andrew Chalkley
+              a(href='patron_detail') #{loan.Patron.first_name} #{loan.Patron.last_name}
 
-            td
+            td #{loan.loaned_on}
 
-            td 2015-12-19
+            td #{loan.return_by}
 
-            td
+            td #{loan.returned_on}
 
-            td
+            td 
               a.button(href='return_book') Return Book

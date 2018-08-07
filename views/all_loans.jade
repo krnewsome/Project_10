@@ -11,9 +11,9 @@ block content
        Filters
       a(href='all_loans') All
 
-      a(href='overdue_loans') Overdue
+      a(href='overdue_loans')  Overdue
 
-      a(href='checked_loans') Checked Out
+      a(href='checked_loans')  Checked Out
 
     table
       thead
@@ -31,19 +31,18 @@ block content
           th Action
 
       tbody
-        tr
         each loan in loans
-          td
-            a(href='book_detail') Emma
+          tr
+            td
+              a(href='book_detail/#{loan.Book.id}') #{loan.Book.title}
+            td
+              a(href='patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
 
-          td
-            a(href='patron_detail') Dave McFarland
+            td #{loan.loaned_on}
 
-          td #{loan.loaned_on}
+            td #{loan.return_by}
 
-          td 2020-10-20
+            td #{loan.returned_on}
 
-          td
-
-          td
-            a.button(href='return_book') Return Book
+            td
+              a.button(href='return_book/#{loan.id}') Return Book

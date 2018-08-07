@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       primaryKey: true,
       type:DataTypes.INTEGER,
+      autoIncrement: true
     },
+
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
     address: DataTypes.STRING,
@@ -14,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Patrons.associate = function(models) {
     // associations can be defined here
+    Patrons.hasMany(models.Loans, {foreignKey: 'patrons_id'})
   };
   return Patrons;
 };

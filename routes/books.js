@@ -1,12 +1,16 @@
 var express = require('express');
 var router = express.Router();
-const Book = require('../models').Book;
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
+const {Book, Patrons, Loans} = require('../models');
+const moment = require('moment');
+
 /* ---------- BOOKS -----------. */
 
 /* GET new_book page. */
 router.get('/new_book', function(req, res, next) {
-    res.render('new_book', {book: Book.build()
-  });
+    res.render('new_book', {book: Book.build()}
+  );//end of render
 });
 
 
@@ -30,6 +34,10 @@ router.post('/new_book', function(req, res, next) {
 router.get('/all_books', function(req, res, next) {
   Book.findAll()
   .then(function(books){
+    books.map(function(book){
+      if(book.first_published !== null)
+      book.first_published = moment(book.first_published).format('YYYY')
+    })
     res.render('all_books', {books:books})
   })
   .catch(function (err) {
@@ -40,10 +48,15 @@ router.get('/all_books', function(req, res, next) {
 /* GET individual book_detail page. */
 router.get('/book_detail/:id', function(req, res, next) {
   Book.findAll({
+    include: [
+      {
+        model: Loans,
+        include: [Patrons, Book]
+      }
+    ],
     where: {
-      id: req.params.id
-    },
-
+      id: req.params.id,
+    }
   }).then(function(books){
     res.render('book_detail', {books:books});
   })
@@ -81,12 +94,36 @@ router.post('/book_detail/:id', function(req, res, next) {
 
 /* GET overdue_books page. */
 router.get('/overdue_books', function(req, res, next) {
-  res.render('overdue_books');
-});
+  Loans.findAll({
+    include:[{
+      model: Book,
+    }],
+    where:{
+      returned_on: null,
+      return_by: {
+        [Op.lt]: new Date()
+      }
+    }
+  }).then(function(loans){
+      console.log(loans[0])
+        res.render('overdue_books', {loans: loans});
+      })//end of then
+});//end of get overdue_books
 
 /* GET checked_books page. */
-router.get('/books?filter=checked_out', function(req, res, next) {
-  res.render('checked_books ');
-});
+router.get('/checked_books', function(req, res, next) {
+  Loans.findAll({
+    include:[{
+      model: Book,
+    }],
+    where:{
+      loaned_on: {
+        [Op.ne]: null
+      }
+    }
+  }).then(function(loans){
+    res.render('checked_books', {loans: loans});
+})//end of then
+});//end of get cheked_books page
 
 module.exports = router;
