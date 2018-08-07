@@ -4,22 +4,24 @@ block content
 
     if(errors)
 
-      h1 Please fill out Title, Author, and Genre
+      h1 #{errors[0].message}
+        h3 required fields*
 
     else
 
       h1 New Book
+        h3 required fields*
     form(method='post')
       p
-        label(for='title') Title
+        label(for='title') Title*
         input#book(type='text' name ='title' value = book.title)
 
       p
-        label(for='author') Author
+        label(for='author') Author*
         input#author(type='text' name ='author' value = book.author)
 
       p
-        label(for='genre') Genre
+        label(for='genre') Genre*
         input#genre(type='text' name ='genre' value = book.genre)
 
       p

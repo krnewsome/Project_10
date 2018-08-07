@@ -5,15 +5,9 @@ block content
     h1 Checked Out Books
 
     p
-      a.button(href='new_loan.html') Create New Loan
+      a.button(href='new_loan') Create New Loan
 
-    p
-       Filters
-      a(href='all_loans.html') All
-
-      a(href='overdue_loans.html') Overdue
-
-      a(href='checked_loans.html') Checked Out
+    include includes/filters.jade
 
     table
       thead
@@ -31,66 +25,20 @@ block content
           th Action
 
       tbody
+      each loan in loans
         tr
           td
-            a(href='book_detail.html') Emma
+            a(href='book_detail') #{loan.Book.title}
 
           td
-            a(href='patron_detail.html') Dave McFarland
+            a(href='patron_detail') #{loan.Patron.first_name} #{loan.Patron.last_name}
 
-          td 2015-12-10
+          td #{loan.loaned_on}
 
-          td 2020-10-20
+          td #{loan.return_by}
 
-          td
-
-          td
-            a.button(href='return_book.html') Return Book
-
-        tr
-          td
-            a(href='book_detail.html') Harry Potter and the Goblet of Fire
+          td #{loan.returned_on}
 
           td
-            a(href='patron_detail.html') Andrew Chalkley
-
-          td 2015-12-11
-
-          td 2015-12-18
-
-          td
-
-          td
-            a.button(href='return_book.html') Return Book
-
-        tr
-          td
-            a(href='book_detail.html') A Brief History of Time
-
-          td
-            a(href='patron_detail.html') Andrew Chalkley
-
-          td 2015-12-12
-
-          td 2015-12-19
-
-          td
-
-          td
-            a.button(href='return_book.html') Return Book
-
-        tr
-          td
-            a(href='book_detail.html') The Universe in a Nutshell
-
-          td
-            a(href='patron_detail.html') Alena Holligan
-
-          td 2015-12-13
-
-          td 2015-12-20
-
-          td
-
-          td
-            a.button(href='return_book.html') Return Book
+            if(loan.returned_on === null)
+              a.button(href='return_book/#{loan.Book.id}') Return Book

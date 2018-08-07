@@ -122,6 +122,10 @@ router.get('/checked_books', function(req, res, next) {
       }
     }
   }).then(function(loans){
+    loans.map(function(book){
+      if(book.Book.first_published !== null)
+      book.Book.first_published = moment(book.Book.first_published).format('YYYY')
+    })
     res.render('checked_books', {loans: loans});
 })//end of then
 });//end of get cheked_books page

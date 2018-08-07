@@ -47,13 +47,19 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notEmpty: {
-          msg: "Return Date is required"
+          msg: "Return by Date is required"
         }
       }
     },
+    
     returned_on: {
       type: DataTypes.INTEGER,
-    }
+      validate: {
+        notEmpty: {
+          msg: "Return by Date is required"
+        }
+      }
+    },
   }, {});
   Loans.associate = function(models) {
     // associations can be defined here

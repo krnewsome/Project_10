@@ -1,6 +1,8 @@
 express = require('express');
 var router = express.Router();
 const {Loans, Book, Patrons }= require('../models');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 const moment = require('moment');
 
 /* ---------- LOANS -----------. */
@@ -53,7 +55,7 @@ router.get('/all_loans', function(req, res, next) {
   }).then(function(loans){
     loans.map(function(loan){
       if(loan.returned_on !== null)
-      loan.returned_on = moment(loan.returned_on).format('YYYY-MM-DD')
+        loan.returned_on = moment(loan.returned_on).format('YYYY-MM-DD')
     });
     res.render('all_loans', {loans:loans});
   })//end of then
@@ -66,8 +68,22 @@ router.get('/overdue_loans', function(req, res, next) {
 
 /* GET checked_loans page. */
 router.get('/checked_loans', function(req, res, next) {
-  res.render('checked_loans');
-});
+  Loans.findAll({
+    include: [
+      {model: Book},
+      {model: Patrons}
+    ],
+    where:{
+      loaned_on: {
+        [Op.ne]: null
+      }
+    }
+  }).then(function(loans){
+    console.log(loans)
+      res.render('checked_loans', {loans:loans});
+  })
+});//end of get checked_loans
+
 
 /* GET return_book page. */
 router.get('/return_book/:id', function(req, res, next) {
@@ -80,11 +96,12 @@ router.get('/return_book/:id', function(req, res, next) {
       id: req.params.id,
     }
   }).then(function(loans){
-    loans[0].returned_on = moment().format('YYYY-MM-DD')
-    res.render('return_book', {loans: loans});
+    console.log(loans[0].returned_on)
+      if(loans[0].returned_on === null)
+        loans[0].returned_on = moment().format('YYYY-MM-DD')
+      res.render('return_book', {loans: loans});
   })
-});
-
+})
 /* POST updated loan returned_book */
 router.post('/return_book/:id', function(req, res, next) {
   Loans.findAll({
@@ -92,20 +109,30 @@ router.post('/return_book/:id', function(req, res, next) {
       id: req.params.id
     }
   })//end of findAll
-  .then(function(loan){
+  .then(function(loans){
       return Loans.update(req.body, {
         where: {
           id: req.params.id,
         },
       })//end of update
-    .then(function(loan) {
+    .then(function(loans) {
         res.redirect('/all_loans');
     })//end of then
   })//end of then
   .catch(function (err) {
     if(err.name === "SequelizeValidationError"){
-        res.render('new_book', {
-          loan: Loan.build(req.body),errors: err.errors});
+      let errors = err.errors
+      Loans.findAll({
+        include: [
+          {model: Book},
+          {model: Patrons}
+        ],
+        where: {
+          id: req.params.id,
+        }
+      }).then(function(loans){
+        res.render('return_book', {loans:loans, errors:errors});
+      })//end of findAll
     }else {
       throw err;
     }
@@ -113,7 +140,7 @@ router.post('/return_book/:id', function(req, res, next) {
   .catch(function(err){
     console.log(err)
     });//end of catch
-});//end of update book
+});//end of update loan
 
 
 

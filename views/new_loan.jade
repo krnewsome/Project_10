@@ -4,32 +4,31 @@ block content
 
   if(errors)
 
-    h1 Please fill out All fields
+    h1 #{errors[0].message}
 
   else
 
     h1 New Loan
-
+      h3 required fields*
   form(method='post')
     p
-      label(for='book_id') Book
+      label(for='book_id') Book*
       select(name='book_id')
         each book in books
           option(name = 'book_id' value= book.id ) #{book.title}
 
     p
-      label(for='patron_id') Patron
+      label(for='patron_id') Patron*
       select(name='patrons_id')
         each patron in patrons
           option(name = 'patron_id' value= patron.id) #{patron.first_name} #{patron.last_name}
 
-
     p
-      label(for='loaned_on') Loaned on:
+      label(for='loaned_on') Loaned on*:
       input#loaned_on(type='date' name='loaned_on' value= loan.loaned_on)
 
     p
-      label(for='return_by') Return by:
+      label(for='return_by') Return by*:
       input#return_by(type='date' name='return_by' value=loan.return_by)
 
     p

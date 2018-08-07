@@ -1,8 +1,16 @@
 extends layout
 
 block content
-  each loan in loans
+
+  if(errors)
+
+    h1 Please Input a Return Date
+
+  else
+
     h1 Patron: Return Book
+
+  each loan in loans
 
     p
       strong Book Title: #{loan.Book.title}
