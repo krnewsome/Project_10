@@ -2,38 +2,39 @@ extends layout
 
 block content
 
-    h1 Checked Out Books
+  h1 Checked Out Books
 
-    p
-      a.button(href='new_book') Create New Book
+  p
+    a.button(href='new_book') Create New Book
 
     p
        Filters
       a(href='all_books') All
 
-      a(href='overdue_books')  Overdue
+      a(href='overdue_books')  - Overdue
 
-      a(href='checked_books')  Checked Out
 
-    table
-      thead
-        tr
-          th Title
+      a(href='checked_books')   - Checked Out
 
-          th Author
+  table
+    thead
+      tr
+        th Title
 
-          th Genre
+        th Author
 
-          th Year Released
+        th Genre
 
-      tbody
-      each loan in loans
-        tr
-          td
-            a(href='book_detail/#{loan.Book.id}') #{loan.Book.title}
+        th Year Released
 
-          td #{loan.Book.author}
+    tbody
+    each book in books
+      tr
+        td
+          a(href='book_detail/#{book.Book.id}') #{book.Book.title}
 
-          td #{loan.Book.genre}
+        td #{book.Book.author}
 
-          td #{loan.Book.first_published}
+        td #{book.Book.genre}
+
+        td #{book.Book.first_published}

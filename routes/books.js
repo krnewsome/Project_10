@@ -76,7 +76,6 @@ router.post('/book_detail/:id', function(req, res, next) {
         }
       })//end of update
     .then(function(book) {
-        console.log(book)
         res.redirect('/all_books');
     })//end of then
   })//end of then
@@ -105,7 +104,6 @@ router.get('/overdue_books', function(req, res, next) {
       }
     }
   }).then(function(loans){
-      console.log(loans[0])
         res.render('overdue_books', {loans: loans});
       })//end of then
 });//end of get overdue_books
@@ -117,16 +115,19 @@ router.get('/checked_books', function(req, res, next) {
       model: Book,
     }],
     where:{
-      loaned_on: {
-        [Op.ne]: null
+      returned_on: {
+        [Op.eq]: null,
       }
     }
-  }).then(function(loans){
-    loans.map(function(book){
-      if(book.Book.first_published !== null)
-      book.Book.first_published = moment(book.Book.first_published).format('YYYY')
-    })
-    res.render('checked_books', {loans: loans});
+  }).then(function(books){
+      let checkedOutBooks = [];
+    books.map(function(book){
+      if(book.returned_on === null){
+        book.Book.first_published = moment(book.Book.first_published).format('YYYY')
+        checkedOutBooks.push(book);
+      }
+    })//end of map
+    res.render('checked_books', {books:checkedOutBooks});
 })//end of then
 });//end of get cheked_books page
 

@@ -7,7 +7,14 @@ block content
     p
       a.button(href='new_loan') Create New Loan
 
-    include includes/filters.jade
+    p
+       Filters
+      a(href='all_loans') All
+
+      a(href='overdue_loans')  - Overdue
+
+
+      a(href='checked_loans')  - Checked Out
 
     table
       thead
@@ -28,10 +35,10 @@ block content
       each loan in loans
         tr
           td
-            a(href='book_detail') #{loan.Book.title}
+            a(href='book_detail/#{loan.Book.id}') #{loan.Book.title}
 
           td
-            a(href='patron_detail') #{loan.Patron.first_name} #{loan.Patron.last_name}
+            a(href='patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
 
           td #{loan.loaned_on}
 

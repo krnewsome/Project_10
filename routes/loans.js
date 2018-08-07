@@ -63,7 +63,20 @@ router.get('/all_loans', function(req, res, next) {
 
 /* GET overdue_loans page. */
 router.get('/overdue_loans', function(req, res, next) {
-  res.render('overdue_loans');
+  Loans.findAll({
+    include: [
+      {model: Book},
+      {model: Patrons}
+    ],
+    where:{
+      returned_on: null,
+      return_by: {
+        [Op.lt]: new Date()
+      }
+    }
+  }).then(function(loans){
+    res.render('overdue_loans', {loans: loans});
+  })
 });
 
 /* GET checked_loans page. */
@@ -74,13 +87,12 @@ router.get('/checked_loans', function(req, res, next) {
       {model: Patrons}
     ],
     where:{
-      loaned_on: {
-        [Op.ne]: null
+      returned_on: {
+        [Op.eq]: null
       }
     }
   }).then(function(loans){
-    console.log(loans)
-      res.render('checked_loans', {loans:loans});
+    res.render('checked_loans', {loans:loans});
   })
 });//end of get checked_loans
 
@@ -141,7 +153,5 @@ router.post('/return_book/:id', function(req, res, next) {
     console.log(err)
     });//end of catch
 });//end of update loan
-
-
 
 module.exports = router;

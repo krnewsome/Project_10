@@ -7,8 +7,15 @@ block content
     p
       a.button(href='new_loan') Create New Loan
 
-      include includes/filters.jade
-      
+    p
+       Filters
+      a(href='all_loans') All
+
+      a(href='overdue_loans')  - Overdue
+
+
+      a(href='checked_loans')  - Checked Out
+
     table
       thead
         tr
