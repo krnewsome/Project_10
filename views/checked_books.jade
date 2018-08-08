@@ -28,13 +28,13 @@ block content
         th Year Released
 
     tbody
-    each book in books
+    each loan in loans
       tr
         td
-          a(href='book_detail/#{book.Book.id}') #{book.Book.title}
+          a(href='book_detail/#{loan.Book.id}') #{loan.Book.title}
 
-        td #{book.Book.author}
+        td #{loan.Book.author}
 
-        td #{book.Book.genre}
+        td #{loan.Book.genre}
 
-        td #{book.Book.first_published}
+        td #{loan.Book.first_published}

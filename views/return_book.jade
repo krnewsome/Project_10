@@ -10,6 +10,8 @@ block content
 
     h1 Patron: Return Book
 
+  p.span(style='font-style:italic') required field*
+
   each loan in loans
 
     p
@@ -29,7 +31,7 @@ block content
 
     form(method='post')
       p
-        label(for='returned_on') Returned on:
+        label(for='returned_on') Returned on*:
         input#returned_on(type='date', name='returned_on' value= loan.returned_on)
 
       p

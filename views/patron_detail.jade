@@ -3,6 +3,7 @@ extends layout
 block content
 
     h1 Patron: #{patrons[0].first_name} #{patrons[0].last_name}
+    
     form(method='post')
       each patron in patrons
         p

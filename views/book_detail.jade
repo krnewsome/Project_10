@@ -2,61 +2,61 @@ extends layout
 
 block content
 
-    h1 Book: #{books[0].title}
+  h1 Book: #{books[0].title}
 
-      form(method='post')
-        each book in books
-          p
-            label(for='title') Title
-            input#title(type='text', name='title', value= book.title)
+    form(method='post')
+      each book in books
+        p
+          label(for='title') Title
+          input#title(type='text', name='title', value= book.title)
 
-          p
-            label(for='author') Author
-            input#author(type='text', name='author', value= book.author)
+        p
+          label(for='author') Author
+          input#author(type='text', name='author', value= book.author)
 
-          p
-            label(for='genre') Genre
-            input#genre(type='text', name= 'genre', value= book.genre)
+        p
+          label(for='genre') Genre
+          input#genre(type='text', name= 'genre', value= book.genre)
 
-          p
-            label(for='first_published') First Published
-            input#first_published(type='text', name='first_published', value= book.first_published)
+        p
+          label(for='first_published') First Published
+          input#first_published(type='text', name='first_published', value= book.first_published)
 
-          p
-            input(type='submit', value='Update')
+        p
+          input(type='submit', value='Update')
 
-      h2 Loan History
+    h2 Loan History
 
-      table
-        thead
-          tr
-            th Book
+    table
+      thead
+        tr
+          th Book
 
-            th Patron
+          th Patron
 
-            th Loaned on
+          th Loaned on
 
-            th Return by
+          th Return by
 
-            th Returned on
+          th Returned on
 
-            th Action
+          th Action
 
-        tbody
-        each loan in books[0].Loans
-          tr
-            td
-              a(href='/book_detail/#{loan.Book.id}') #{loan.Book.title}
+      tbody
+      each loan in books[0].Loans
+        tr
+          td
+            a(href='/book_detail/#{loan.Book.id}') #{loan.Book.title}
 
-            td
-              a(href='/patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
+          td
+            a(href='/patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
 
-            td #{loan.loaned_on}
+          td #{loan.loaned_on}
 
-            td #{loan.return_by}
+          td #{loan.return_by}
 
-            td #{loan.returned_on}
+          td #{loan.returned_on}
 
-            td
-              if(loan.returned_on === null)
-                a.button(href='/return_book/#{loan.id}') Return Book
+          td
+            if(loan.returned_on === null)
+              a.button(href='/return_book/#{loan.id}') Return Book

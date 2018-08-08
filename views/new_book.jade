@@ -5,12 +5,13 @@ block content
     if(errors)
 
       h1 #{errors[0].message}
-        h3 required fields*
 
     else
 
       h1 New Book
-        h3 required fields*
+
+    p.span(style='font-style:italic') required fields*
+
     form(method='post')
       p
         label(for='title') Title*
