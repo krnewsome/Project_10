@@ -27,15 +27,15 @@ router.get('/all_loans', function (req, res, next) {
 
 /* GET new_loan page. */
 router.get('/new_loan', function (req, res, next) {
-    Book.findAll().then(function (books) {
-      books = books;
-      Patrons.findAll().then(function (patrons) {
-        patrons = patrons;
-        res.render('new_loan', { loan: Loans.build(), books: books, patrons: patrons }
-        );//end of render
-      });
-    });
-  });//end of get new_loan page
+  Book.findAll().then(function (books) {
+    let book = books;
+    Patrons.findAll().then(function (patrons) {
+      let patron = patrons;
+      res.render('new_loan', { loan: Loans.build(), books: book, patrons: patron }
+      );//end of render
+    });//end of then
+  })//end of then
+});//end of get new_loan page
 
 /* Post new_loan page. */
 router.post('/new_loan', function (req, res, next) {

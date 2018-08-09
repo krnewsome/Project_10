@@ -32,19 +32,19 @@ block content
           th Action
 
       tbody
-        each loan in loans
-          tr
-            td
-              a(href='book_detail/#{loan.Book.id}') #{loan.Book.title}
-            td
-              a(href='patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
+      each loan in loans
+        tr
+          td
+            a(href='book_detail/#{loan.Book.id}') #{loan.Book.title}
+          td
+            a(href='patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
 
-            td #{loan.loaned_on}
+          td #{loan.loaned_on}
 
-            td #{loan.return_by}
+          td #{loan.return_by}
 
-            td #{loan.returned_on}
+          td #{loan.returned_on}
 
-            td
-              if(loan.returned_on === null)
-                a.button(href='return_book/#{loan.id}') Return Book
+          td
+            if(loan.returned_on === null)
+              a.button(href='return_book/#{loan.id}') Return Book

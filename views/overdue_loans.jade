@@ -34,7 +34,7 @@ block content
       each loan in loans
         tr
           td
-            a(href='book_detail/#{loan.Book.id}}') #{loan.Book.title}
+            a(href='book_detail/#{loan.Book.id}') #{loan.Book.title}
 
           td
             a(href='patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name}
