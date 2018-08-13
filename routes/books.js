@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const paginate = require('express-paginate');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const { Book, Patrons, Loans } = require('../models');
@@ -7,21 +8,24 @@ const moment = require('moment');
 
 /* ---------- BOOKS ----------- */
 
-/* GET all_books page. */
-router.get('/all_books', function (req, res, next) {
-  Book.findAll()
-  .then(function (books) {
-    books.map(function (book) {
-      if (book.first_published !== null)
-      book.first_published = moment(book.first_published).format('YYYY');
-    });
+  /* GET all_books page. */
+  router.get('/all_books', function (req, res, next) {
+    Book.findAndCountAll({limit: req.query.limit, offset: req.skip})
+    .then(function (books) {
+      books.rows.map(function (book) {
+        if (book.first_published !== null)
+        book.first_published = moment(book.first_published).format('YYYY');
+      })
+      const itemCount = books.count;
+      const pageCount = Math.ceil(books.count / 10)
+      res.render('all_books', { books: books.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, 1)}
+      );//end of render
+    })
+    .catch(function (err) {
+      res.send(500);
+    });//end of catch
+  });//end of get all books page
 
-    res.render('all_books', { books: books });
-  })
-  .catch(function (err) {
-    res.send(500);
-  });//end of catch
-});
 
 /* GET new_book page. */
 router.get('/new_book', function (req, res, next) {
