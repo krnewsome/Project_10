@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const paginate = require('express-paginate');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const { Book, Patrons, Loans } = require('../models');
@@ -9,20 +10,24 @@ const moment = require('moment');
 
 /* GET all_loans page. */
 router.get('/all_loans', function (req, res, next) {
-  Loans.findAll({
+  Loans.findAndCountAll({
+    limit: req.query.limit,
+    offset: req.skip,
     include: [
       { model: Book },
       { model: Patrons },
     ],
-  })
+  })//end of findAndCountAll
   .then(function (loans) {
-    loans.map(function (loan) {
+    loans.rows.map(function (loan) {
       if (loan.returned_on !== null)
         loan.returned_on = moment(loan.returned_on).format('YYYY-MM-DD');
     });
-
-    res.render('all_loans', { loans: loans });
-  });//end of then
+    const itemCount = loans.count;
+    const pageCount = Math.ceil(loans.count / 10);
+    res.render('all_loans', { loans: loans.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, req.query.page) }
+    );//end of render
+  })//end of then
 });//end of get
 
 /* GET new_loan page. */
@@ -63,7 +68,9 @@ router.post('/new_loan', function (req, res, next) {
 
 /* GET overdue_loans page. */
 router.get('/overdue_loans', function (req, res, next) {
-  Loans.findAll({
+  Loans.findAndCountAll({
+    limit: req.query.limit,
+    offset: req.skip,
     include: [
       { model: Book },
       { model: Patrons },
@@ -76,13 +83,17 @@ router.get('/overdue_loans', function (req, res, next) {
     },
   })
   .then(function (loans) {
-    res.render('overdue_loans', { loans: loans });
+    const itemCount = loans.count;
+    const pageCount = Math.ceil(loans.count / 10);
+    res.render('overdue_loans', { loans: loans.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, req.query.page) });
   });//end of then
 });//end of get overdue_loans
 
 /* GET checked_loans page. */
 router.get('/checked_loans', function (req, res, next) {
-  Loans.findAll({
+  Loans.findAndCountAll({
+    limit: req.query.limit,
+    offset: req.skip,
     include: [
       { model: Book },
       { model: Patrons },
@@ -94,7 +105,9 @@ router.get('/checked_loans', function (req, res, next) {
     },
   })
   .then(function (loans) {
-    res.render('checked_loans', { loans: loans });
+    const itemCount = loans.count;
+    const pageCount = Math.ceil(loans.count / 10);
+    res.render('checked_loans', { loans: loans.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, req.query.page) });
   });//end of then
 });//end of get checked_loans
 

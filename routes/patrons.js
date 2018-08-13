@@ -1,14 +1,17 @@
 express = require('express');
 var router = express.Router();
+const paginate = require('express-paginate');
 const { Patrons, Loans, Book } = require('../models');
 
 /* ---------- PATRONS -----------. */
 
 /* GET all_patrons page. */
 router.get('/all_patrons', function (req, res, next) {
-  Patrons.findAll()
+  Patrons.findAndCountAll({ limit: req.query.limit, offset: req.skip })
   .then(function (patrons) {
-    res.render('all_patrons', { patrons: patrons });
+    const itemCount = patrons.count;
+    const pageCount = Math.ceil(patrons.count / 10);
+    res.render('all_patrons', { patrons: patrons.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCountreq.query.page) });
   });//end of then
 });//end of get all_patrons page
 

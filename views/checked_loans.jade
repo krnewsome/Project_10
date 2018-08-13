@@ -49,3 +49,5 @@ block content
           td
             if(loan.returned_on === null)
               a.button(href='return_book/#{loan.Book.id}') Return Book
+
+    include _paginate
