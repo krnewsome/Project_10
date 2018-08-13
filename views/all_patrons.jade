@@ -3,7 +3,14 @@ extends layout
 block content
 
     h1 Patrons
+    if(url === '/all_patrons')
+      form(method='post')
+        p
+        label(for='search') Search
+        input#search(type='text', name='search' )
 
+        p
+          input(type='submit', value='search')
     p
       a.button(href='new_patron') Create New Patron
 

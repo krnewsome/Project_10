@@ -23,11 +23,12 @@ router.get('/all_loans', function (req, res, next) {
       if (loan.returned_on !== null)
         loan.returned_on = moment(loan.returned_on).format('YYYY-MM-DD');
     });
+
     const itemCount = loans.count;
     const pageCount = Math.ceil(loans.count / 10);
     res.render('all_loans', { loans: loans.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, req.query.page) }
     );//end of render
-  })//end of then
+  });//end of then
 });//end of get
 
 /* GET new_loan page. */
@@ -39,7 +40,7 @@ router.get('/new_loan', function (req, res, next) {
       res.render('new_loan', { loan: Loans.build(), books: book, patrons: patron }
       );//end of render
     });//end of then
-  })//end of then
+  });//end of then
 });//end of get new_loan page
 
 /* Post new_loan page. */
