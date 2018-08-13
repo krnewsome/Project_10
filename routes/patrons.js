@@ -7,11 +7,14 @@ const { Patrons, Loans, Book } = require('../models');
 
 /* GET all_patrons page. */
 router.get('/all_patrons', function (req, res, next) {
-  Patrons.findAndCountAll({ limit: req.query.limit, offset: req.skip })
+  Patrons.findAndCountAll({
+    limit: req.query.limit,
+    offset: req.skip,
+  })//end of findAndCountAll
   .then(function (patrons) {
     const itemCount = patrons.count;
     const pageCount = Math.ceil(patrons.count / 10);
-    res.render('all_patrons', { patrons: patrons.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCountreq.query.page) });
+    res.render('all_patrons', { patrons: patrons.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, req.query.page) });
   });//end of then
 });//end of get all_patrons page
 

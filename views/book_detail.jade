@@ -43,13 +43,13 @@ block content
           th Action
 
       tbody
-      each loan in books[0].Loans
+      each loan in loans
         tr
           td
-            a(href='/book_detail/#{loan.Book.id}') #{loan.Book.title}
+            a(href='/book_detail/#{loan.id}') #{loan.Book.title}
 
           td
-            a(href='/patron_detail/#{loan.Patron.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
+            a(href='/patron_detail/#{loan.id}') #{loan.Patron.first_name} #{loan.Patron.last_name}
 
           td #{loan.loaned_on}
 
@@ -60,3 +60,5 @@ block content
           td
             if(loan.returned_on === null)
               a.button(href='/return_book/#{loan.id}') Return Book
+
+    include _paginate

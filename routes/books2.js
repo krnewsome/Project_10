@@ -10,7 +10,6 @@ const moment = require('moment');
 
   /* GET all_books page. */
   router.get('/all_books', function (req, res, next) {
-    let url = req.url;
     Book.findAndCountAll({
       limit: req.query.limit,
       offset: req.skip,
@@ -22,7 +21,7 @@ const moment = require('moment');
       })
       const itemCount = books.count;
       const pageCount = Math.ceil(books.count / 10);
-      res.render('all_books', { books: books.rows, url: url, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)}
+      res.render('all_books', { books: books.rows, itemCount, pageCount, pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)}
       );//end of render
     })//end of then
     .catch(function (err) {
@@ -32,6 +31,7 @@ const moment = require('moment');
 
   /* POST search page */
   router.post('/all_books', function (req, res, next) {
+    console.log(req.body.search);
     Book.findAndCountAll({
       where: {
         [Op.or]: [
